@@ -1,28 +1,34 @@
 const form = document.getElementById('contact-form');
+const feedback = document.getElementById('feedback');
 
 form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+    e.preventDefault(); // Empêche le rechargement de la page
 
-  const name = form.name.value;
-  const email = form.email.value;
-  const message = form.message.value;
+    const formData = new FormData(form);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message')
+    };
 
-  try {
-    const response = await fetch('https://courriel.onrender.com/send-email', { // URL de Render
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer test1234' // remplace par ton token
-      },
-      body: JSON.stringify({ name, email, message })
-    });
+    try {
+        const response = await fetch('https://courriel.onrender.com/send-mail', { // <- ton URL serveur
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
 
-    const text = await response.text();
-    alert(text); // affiche le retour du serveur
-
-  } catch (err) {
-    console.error(err);
-    alert('Problème de connexion au serveur.');
-  }
+        if (response.ok) {
+            feedback.style.color = 'green';
+            feedback.textContent = "Mail envoyé avec succès !";
+            form.reset();
+        } else {
+            feedback.style.color = 'red';
+            feedback.textContent = "Erreur lors de l'envoi du mail.";
+        }
+    } catch (error) {
+        feedback.style.color = 'red';
+        feedback.textContent = "Erreur : " + error.message;
+    }
 });
 
