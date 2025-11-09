@@ -8,7 +8,7 @@ form.addEventListener('submit', async (e) => {
     const message = form.message.value;
 
     try {
-        const response = await fetch('https://courriel.onrender.com/send-email', {
+        const response = await fetch('https://courriel.onrender.com/send-email', { // <-- URL de Render
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, message })
@@ -26,3 +26,4 @@ form.addEventListener('submit', async (e) => {
         alert("Problème de connexion au serveur.");
     }
 });
+
