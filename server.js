@@ -40,7 +40,7 @@ oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 // ---------------- ROUTE SECURISEE /send-email ----------------
 app.post('/send-email', async (req, res) => {
     const authHeader = req.headers['authorization'];
-    if (!authHeader || authHeader !== `Bearer ${RENDER_SECRET_TOKEN}`) {
+    if (!authHeader || authHeader !== `Bearer ${test1234}`) {
         return res.status(401).send('❌ Non autorisé');
     }
 
