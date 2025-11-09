@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'https://<ton-utilisateur>.github.io'  // remplace par ton nom GitHub
+    origin: 'https://ppruvost.github.io'  // remplace par ton nom GitHub
 }));
 
 app.post('/send-email', async (req, res) => {
